@@ -1,0 +1,1 @@
+"D:\Programs\qemu\qemu-system-i386.exe" -L "D:\Programs\qemu" -hda "C:\Users\Reiz\Documents\Visual Studio 2012\Projects\Simple-QEMU\Simple-QEMU\bin\Debug\images\img1.qcow2" -cdrom C:\Users\Reiz\Downloads\Windows98SEcnyb_downcc.com.iso -m 64 -vga cirrus -net user -net nic,model=ne2k_pci -device sb16 -hdd fat:rw:C:\Users\Reiz\Downloads\ShareFolder

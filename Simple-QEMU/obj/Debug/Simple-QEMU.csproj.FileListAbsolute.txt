@@ -1,0 +1,23 @@
+F:\QQFS\1514931537\FileRecv\Simple-QEMU\Simple-QEMU\bin\Debug\Simple-QEMU.exe
+F:\QQFS\1514931537\FileRecv\Simple-QEMU\Simple-QEMU\bin\Debug\Simple-QEMU.pdb
+F:\QQFS\1514931537\FileRecv\Simple-QEMU\Simple-QEMU\obj\Debug\SQEMU.Form1.resources
+F:\QQFS\1514931537\FileRecv\Simple-QEMU\Simple-QEMU\obj\Debug\Simple_QEMU.GQP.resources
+F:\QQFS\1514931537\FileRecv\Simple-QEMU\Simple-QEMU\obj\Debug\Simple_QEMU.ImgTools.resources
+F:\QQFS\1514931537\FileRecv\Simple-QEMU\Simple-QEMU\obj\Debug\SQEMU.Manager.resources
+F:\QQFS\1514931537\FileRecv\Simple-QEMU\Simple-QEMU\obj\Debug\SQEMU.NewVM.resources
+F:\QQFS\1514931537\FileRecv\Simple-QEMU\Simple-QEMU\obj\Debug\Simple_QEMU.Properties.Resources.resources
+F:\QQFS\1514931537\FileRecv\Simple-QEMU\Simple-QEMU\obj\Debug\Simple-QEMU.csproj.GenerateResource.Cache
+F:\QQFS\1514931537\FileRecv\Simple-QEMU\Simple-QEMU\obj\Debug\Simple-QEMU.exe
+F:\QQFS\1514931537\FileRecv\Simple-QEMU\Simple-QEMU\obj\Debug\Simple-QEMU.pdb
+C:\Users\Reiz\Documents\Visual Studio 2012\Projects\Simple-QEMU\Simple-QEMU\obj\Debug\Simple-QEMU.exe
+C:\Users\Reiz\Documents\Visual Studio 2012\Projects\Simple-QEMU\Simple-QEMU\obj\Debug\Simple-QEMU.pdb
+C:\Users\Reiz\Documents\Visual Studio 2012\Projects\Simple-QEMU\Simple-QEMU\bin\Debug\Simple-QEMU.exe
+C:\Users\Reiz\Documents\Visual Studio 2012\Projects\Simple-QEMU\Simple-QEMU\bin\Debug\Simple-QEMU.pdb
+C:\Users\Reiz\Documents\Visual Studio 2012\Projects\Simple-QEMU\Simple-QEMU\obj\Debug\Simple-QEMU.csprojResolveAssemblyReference.cache
+C:\Users\Reiz\Documents\Visual Studio 2012\Projects\Simple-QEMU\Simple-QEMU\obj\Debug\SQEMU.Form1.resources
+C:\Users\Reiz\Documents\Visual Studio 2012\Projects\Simple-QEMU\Simple-QEMU\obj\Debug\Simple_QEMU.GQP.resources
+C:\Users\Reiz\Documents\Visual Studio 2012\Projects\Simple-QEMU\Simple-QEMU\obj\Debug\Simple_QEMU.ImgTools.resources
+C:\Users\Reiz\Documents\Visual Studio 2012\Projects\Simple-QEMU\Simple-QEMU\obj\Debug\SQEMU.Manager.resources
+C:\Users\Reiz\Documents\Visual Studio 2012\Projects\Simple-QEMU\Simple-QEMU\obj\Debug\SQEMU.NewVM.resources
+C:\Users\Reiz\Documents\Visual Studio 2012\Projects\Simple-QEMU\Simple-QEMU\obj\Debug\Simple_QEMU.Properties.Resources.resources
+C:\Users\Reiz\Documents\Visual Studio 2012\Projects\Simple-QEMU\Simple-QEMU\obj\Debug\Simple-QEMU.csproj.GenerateResource.Cache
