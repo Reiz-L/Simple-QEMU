@@ -27,9 +27,13 @@ namespace SQEMU
 
         private void 删除ToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            string str = listBox1.SelectedItem.ToString();
+            string[] str1 = str.Split(new string[] {"\\VMS\\"},StringSplitOptions.None);
+            string[] str2 = str1[1].Split(new string[] {".bat"},StringSplitOptions.None);
             try
             {
                 System.IO.File.Delete(@"" + listBox1.SelectedItem.ToString());
+                System.IO.File.Delete(@".\\VMC\\" + str2[0] + ".sqc");
                 listBox1.Items.Remove(listBox1.SelectedItem);
                 textBox1.Text = "";
                 textBox1.Enabled = false;
@@ -50,8 +54,7 @@ namespace SQEMU
         public static string filepath_edit;
         private void Manager_Load(object sender, EventArgs e)
         {
-            button3.Enabled = false;
-            button4.Enabled = false;
+            
             filepath_edit = "";
             if (Directory.Exists(@".\\VMS"))
             {
@@ -133,21 +136,27 @@ namespace SQEMU
             
             
         }
-
+        public static string pathstr;
         private void 编辑ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-           /* if (listBox1.SelectedIndex > -1)
+            if (listBox1.SelectedIndex > -1)
             {
-               // filepath_edit = listBox1.SelectedItem.ToString();
-                //NewVM newvm = new NewVM();
-                //newvm.Show();
+                string[] str1;
+                string[] str2;
+                filepath_edit = listBox1.SelectedItem.ToString();
+                str1 = filepath_edit.Split(new string[] {"\\VMS\\"}, StringSplitOptions.None);
+                str2 = str1[1].Split(new string[] {".bat"},StringSplitOptions.None);
+                pathstr = str2[0];
+                //MessageBox.Show(pathstr,"a");
+                NewVM newvm = new NewVM();
+                newvm.Show();
             }
             else
             {
                 MessageBox.Show("编辑不能","错误 Not Found",MessageBoxButtons.OK,MessageBoxIcon.Error);
-            }*/
+            }
             //暂时使用编辑框
-            //MessageBox.Show("因为我懒，本来创建虚拟机的窗口是拿来编辑的，代码写了很多，但是没写完算了干脆编辑框自己编辑", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information); ;
+            /*
             Process p = new Process();
             p.StartInfo.FileName = "cmd.exe";
             p.StartInfo.UseShellExecute = false;
@@ -159,7 +168,7 @@ namespace SQEMU
             p.StandardInput.WriteLine("notepad " + listBox1.SelectedItem.ToString() + "&exit");
             p.StandardInput.AutoFlush = true;
             p.WaitForExit();
-            p.Close();
+            p.Close();*/
         }
 
         private void listBox1_MouseDown(object sender, MouseEventArgs e)
@@ -176,6 +185,7 @@ namespace SQEMU
                 sw.Write(textBox1.Text);
                 sw.Close();
                 fs.Close();
+                MessageBox.Show("已完成！！！", "info", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             else
             {
@@ -195,5 +205,70 @@ namespace SQEMU
             Simple_QEMU.GQP gpq = new Simple_QEMU.GQP();
             gpq.Show();
         }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+
+            if (listBox1.SelectedIndex > -1)
+            {
+                if (folderBrowserDialog1.ShowDialog() == DialogResult.OK)
+                {
+                    Process p = new Process();
+                    p.StartInfo.FileName = "cmd.exe";
+                    p.StartInfo.UseShellExecute = false;
+                    p.StartInfo.RedirectStandardInput = true;
+                    p.StartInfo.RedirectStandardOutput = true;
+                    p.StartInfo.RedirectStandardError = true;
+                    p.StartInfo.CreateNoWindow = true;
+                    p.Start();
+                    string[] cut1 = listBox1.SelectedItem.ToString().Split(new string[] { ".\\VMS\\" }, StringSplitOptions.None);
+                    string[] cut2 = cut1[1].Split(new string[] { ".bat" }, StringSplitOptions.None);
+                    p.StandardInput.WriteLine("copy " + folderBrowserDialog1.SelectedPath + "\\" + cut2[0] + ".bat" + " " + listBox1.SelectedItem.ToString());
+                    p.StandardInput.WriteLine("copy " + folderBrowserDialog1.SelectedPath + "\\" + cut2[0] + ".sqc" + " " + Application.StartupPath + "\\" + cut2[0] + ".sqc" + "&exit");
+                    p.StandardInput.AutoFlush = true;
+                    p.WaitForExit();
+                    p.Close();
+                    MessageBox.Show("导出完成!", "OK", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+
+            }
+            else
+            {
+                MessageBox.Show("请选中一个项目！", "Error");
+            }
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            if (listBox1.SelectedIndex > -1)
+            {
+                if (folderBrowserDialog1.ShowDialog() == DialogResult.OK)
+                {
+                    Process p = new Process();
+                    p.StartInfo.FileName = "cmd.exe";
+                    p.StartInfo.UseShellExecute = false;
+                    p.StartInfo.RedirectStandardInput = true;
+                    p.StartInfo.RedirectStandardOutput = true;
+                    p.StartInfo.RedirectStandardError = true;
+                    p.StartInfo.CreateNoWindow = true;
+                    p.Start();
+                    string[] cut1 = listBox1.SelectedItem.ToString().Split(new string[] { ".\\VMS\\" }, StringSplitOptions.None);
+                    string[] cut2 = cut1[1].Split(new string[] { ".bat" }, StringSplitOptions.None);
+                    p.StandardInput.WriteLine("copy " + listBox1.SelectedItem.ToString() + " " + folderBrowserDialog1.SelectedPath + "\\" + cut2[0] + ".bat");
+                    p.StandardInput.WriteLine("copy " + Application.StartupPath + "\\" + cut2[0] + ".sqc" + " " + folderBrowserDialog1.SelectedPath + "\\" + cut2[0] + ".sqc" + "&exit");
+                    p.StandardInput.AutoFlush = true;
+                    p.WaitForExit();
+                    p.Close();
+                    MessageBox.Show("导出完成!","OK",MessageBoxButtons.OK,MessageBoxIcon.Information);
+                }
+                
+            }
+            else
+            {
+                MessageBox.Show("请选中一个项目！", "Error");
+            }
+        }
+
+        
     }
 }

@@ -20,8 +20,8 @@ namespace SQEMU
 
         private void NewVM_Load(object sender, EventArgs e)
         {
-            if (Manager.filepath_edit == "")
-            {
+            if (!File.Exists(".\\VMC\\" + Manager.pathstr + ".sqc"))
+           {
                 comboBox_x86.SelectedIndex = 0;
                 comboBox_CPU.SelectedIndex = 0;
                 comboBox_vga.SelectedIndex = 0;
@@ -30,64 +30,43 @@ namespace SQEMU
                 comboBox1.SelectedIndex = 0;
                 textBox_QPath.Text = Application.StartupPath + "\\qemu\\";
             }
-            /*else
-            {
-                StreamReader sr = new StreamReader(Manager.filepath_edit,Encoding.Default);
-                String lines = "";
-                String allline = "";
-                while((lines = sr.ReadLine()) != null)
-                {
-                    allline += lines + "\n\r";
-                }
-                sr.Close();
+            else
+           {
+               try
+               {
+                   StreamReader sr = new StreamReader(".\\VMC\\" + Manager.pathstr + ".sqc", Encoding.Default);
+                   String str1 = sr.ReadToEnd();
+                   string[] str2 = str1.Split(new string[] { "\n" }, StringSplitOptions.None);
+                   sr.Close();
+                   textBox_name.Text = Manager.pathstr;
+                   textBox_QPath.Text = str2[1];
+                   comboBox_x86.SelectedIndex = Convert.ToInt32(str2[2]);
+                   comboBox_CPU.SelectedIndex = Convert.ToInt32(str2[3]);
+                   textBox_core.Text = str2[4];
+                   textBox_mb.Text = str2[5];
+                   t_D1.Text = str2[6];
+                   t_D2.Text = str2[7];
+                   t_D3.Text = str2[8];
+                   t_D4.Text = str2[9];
+                   t_cd.Text = str2[10];
+                   comboBox_vga.SelectedIndex = Convert.ToInt32(str2[11]);
+                   comboBox_sound.SelectedIndex = Convert.ToInt32(str2[12]);
+                   comboBox_network.SelectedIndex = Convert.ToInt32(str2[13]);
+                   checkBox_cd.Checked = Convert.ToBoolean(str2[14]);
+                   checkBox1.Checked = Convert.ToBoolean(str2[15]);//vnc
+                   textBox_sf.Text = str2[16];
+               }
+               catch(Exception e1)
+               {
+                   MessageBox.Show(e1.ToString(),"Error:1919",MessageBoxButtons.OK,MessageBoxIcon.Error);
+               }
                 //读取文件
-                string[] filepath1 = Manager.filepath_edit.Split(new string[] {".\\VMS\\"},StringSplitOptions.None);
-                textBox_name.Text = filepath1[1];
-                string[] Qp = Manager.filepath_edit.Split(new string[]{"\\qemu-system"},StringSplitOptions.None);
-                textBox_QPath.Text = Qp[0];
-                string[] QV1 = allline.Split(new string []{"qemu\\"},StringSplitOptions.None);
-                string[] Qv = QV1[1].Split(new string[] {" -hda"},StringSplitOptions.None);
-                if (Qv[0] == "qemu-system-i386.exe")//qemu-system-i386.exe;qemu-system-x86_64.exe;qemu-system-arm.exe;qemu-system-aarch64.exe
-                {
-                    comboBox_x86.SelectedIndex = 0;
-                }
-                else if (Qv[0] == "qemu-system-x86_64.exe")
-                {
-                    comboBox_x86.SelectedIndex = 1;
-                }
-                else if (Qv[0] == "qemu-system-arm.exe")
-                {
-                    comboBox_x86.SelectedIndex = 2;
-                }
-                else if (Qv[0] == "qemu-system-aarch64.exe")
-                {
-                    comboBox_x86.SelectedIndex = 3;
-                }
-                string[] mb = allline.Split(new string[] {"-m "},StringSplitOptions.None);
-                string[] mb1 = mb[1].Split(new string[] {" -vga"},StringSplitOptions.None);
-                textBox_mb.Text = mb1[0];
-
-                string[] cpucore = allline.Split(new string[] {" -smp "},StringSplitOptions.None);
-                string[] cpuc2 = cpucore[1].Split(new string[] {" -vnc"},StringSplitOptions.None);
-                textBox_core.Text = cpuc2[0];
-
-                string[] hda = allline.Split(new string[]{"-hda "},StringSplitOptions.None);
-                string[] hda1 = hda[1].Split(new string[] { " -hdb" }, StringSplitOptions.None);
-                t_D1.Text = hda1[0];
-
-                string[] hdb = allline.Split(new string[] { "-hdb " }, StringSplitOptions.None);
-                string[] hdb1 = hdb[1].Split(new string[] { " -hdc" }, StringSplitOptions.None);
-                t_D1.Text = hdb1[0];
-
-                string[] hdc = allline.Split(new string[] { "-hdc " }, StringSplitOptions.None);
-                string[] hdc1 = hda[1].Split(new string[] { " -hdd" }, StringSplitOptions.None);
-                t_D1.Text = hdc1[0];
-
-                string[] hdd = allline.Split(new string[] { "-hdd " }, StringSplitOptions.None);
-                string[] hdd1 = hda[1].Split(new string[] { " -cdrom" }, StringSplitOptions.None);
-                t_D1.Text = hdd1[0];
-            }*/
-            
+                
+            }
+            if (!Directory.Exists(".\\VMC"))
+            {
+                Directory.CreateDirectory(".\\VMC");
+            }
         }
 
         private void checkBox1_Click(object sender, EventArgs e)
@@ -108,8 +87,10 @@ namespace SQEMU
             {
                 if (textBox_name.Text != "")
                 {
-                    FileStream fs = new FileStream(Application.StartupPath + "\\VMS\\" + textBox_name.Text + ".bat", FileMode.OpenOrCreate);
+                    FileStream fs = new FileStream(Application.StartupPath + "\\VMS\\" + textBox_name.Text + ".bat", FileMode.Create);
                     StreamWriter sw = new StreamWriter(fs, Encoding.Default);
+                    FileStream fs1 = new FileStream(Application.StartupPath + "\\VMC\\" + textBox_name.Text + ".sqc",FileMode.Create);
+                    StreamWriter sw1 = new StreamWriter(fs1,Encoding.Default); 
                     String vmname = textBox_name.Text;
                     String Qemu = textBox_QPath.Text;
                     String jiagou;//架构
@@ -219,6 +200,9 @@ namespace SQEMU
                     sw.Write("\"" + textBox_QPath.Text +"\\"+ jiagou + "\""+ " -L \"" + textBox_QPath.Text + "\"" + disk1 + disk2 + disk3 + disk4 +CDROM + bootc + Ram + vga + network + soundhw + CPUmodel +core + vnc + shareFolder);
                     sw.Close();
                     fs.Close();
+                    sw1.Write(textBox_name.Text + "\n" +  textBox_QPath.Text + "\n" + comboBox_x86.SelectedIndex.ToString() + "\n" + comboBox_CPU.SelectedIndex.ToString() + "\n" + textBox_core.Text + "\n" + textBox_mb.Text + "\n" + t_D1.Text + "\n" + t_D2.Text + "\n" + t_D3.Text + "\n" + t_D4.Text + "\n" + t_cd.Text + "\n" + comboBox_vga.SelectedIndex.ToString() + "\n" + comboBox_sound.SelectedIndex.ToString() + "\n" + comboBox_network.SelectedIndex.ToString() + "\n" + checkBox_cd.Checked.ToString() +"\n" + checkBox1.Checked.ToString() + "\n" + textBox_sf.Text + "\n");
+                    sw1.Close();
+                    fs1.Close();
                     Close();
                 }
                 

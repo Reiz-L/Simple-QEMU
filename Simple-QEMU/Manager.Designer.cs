@@ -44,6 +44,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.button6 = new System.Windows.Forms.Button();
+            this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
             this.contextMenuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -130,6 +131,7 @@
             this.button3.TabIndex = 3;
             this.button3.Text = "导入配置";
             this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
             // button4
             // 
@@ -140,6 +142,7 @@
             this.button4.TabIndex = 4;
             this.button4.Text = "导出配置";
             this.button4.UseVisualStyleBackColor = true;
+            this.button4.Click += new System.EventHandler(this.button4_Click);
             // 
             // button5
             // 
@@ -177,6 +180,7 @@
             this.textBox1.Location = new System.Drawing.Point(213, 156);
             this.textBox1.Multiline = true;
             this.textBox1.Name = "textBox1";
+            this.textBox1.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.textBox1.Size = new System.Drawing.Size(439, 192);
             this.textBox1.TabIndex = 8;
             // 
@@ -189,6 +193,10 @@
             this.button6.Text = "保存参数";
             this.button6.UseVisualStyleBackColor = true;
             this.button6.Click += new System.EventHandler(this.button6_Click);
+            // 
+            // folderBrowserDialog1
+            // 
+            this.folderBrowserDialog1.Description = "请选择导入/导出的文件夹";
             // 
             // Manager
             // 
@@ -237,5 +245,6 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Button button6;
+        private System.Windows.Forms.FolderBrowserDialog folderBrowserDialog1;
     }
 }

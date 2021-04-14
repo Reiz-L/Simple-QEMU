@@ -1,0 +1,17 @@
+vmname:acac
+Qemu:C:\Users\Reiz\Documents\Visual Studio 2012\Projects\Simple-QEMU\Simple-QEMU\bin\Debug\qemu\
+jiagou:0
+CPU:0
+core:1
+Ram:256
+disk1:
+disk2:
+disk3:
+disk4:
+CDROM:
+vga:0
+soundhw:0
+network:0
+boot:False
+vnc:False
+sharefolder:
