@@ -1,0 +1,1 @@
+"D:\Programs\qemu\qemu-system-i386.exe" -L "D:\Programs\qemu" -hda "C:\Users\Reiz\Documents\Visual Studio 2012\Projects\Simple-QEMU\Simple-QEMU\bin\Debug\images\img1.qcow2" -cdrom F:\BaiduNetdiskDownload\WFLP2k6.iso -boot d -m 256 -vga std -net user -net nic,model=e1000 -device ac97

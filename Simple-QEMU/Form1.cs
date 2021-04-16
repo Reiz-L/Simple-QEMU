@@ -9,6 +9,8 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
 using System.Diagnostics;
+using System.Runtime.InteropServices;
+using System.Threading;
 
 namespace SQEMU
 {
@@ -79,7 +81,7 @@ namespace SQEMU
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
-            this.Close();
+            timer1.Enabled = true;
         }
 
         private void Form1_FormClosed(object sender, FormClosedEventArgs e)
@@ -122,5 +124,61 @@ namespace SQEMU
             p.WaitForExit();
             p.Close();
         }
+
+        private void label6_MouseEnter(object sender, EventArgs e)
+        {
+            label6.ForeColor = Color.Red;
+        }
+
+        private void label6_MouseLeave(object sender, EventArgs e)
+        {
+            label6.ForeColor = Color.Lime;
+        }
+
+        private void label6_Click(object sender, EventArgs e)
+        {
+            timer1.Enabled = true;
+        }
+        [DllImport("user32.dll")]
+        public static extern bool ReleaseCapture();
+
+        [DllImport("user32.dll")]
+        public static extern bool SendMessage(IntPtr hwnd, int wMsg, int wParam, int lParam);
+        private void Form1_MouseDown(object sender, MouseEventArgs e)
+        {
+            ReleaseCapture();
+            SendMessage(this.Handle, 0x0112, 0xF012, 0);
+        }
+
+        private void label4_MouseDown(object sender, MouseEventArgs e)
+        {
+            ReleaseCapture();
+            SendMessage(this.Handle, 0x0112, 0xF012, 0);
+        }
+
+        private void label5_MouseDown(object sender, MouseEventArgs e)
+        {
+            ReleaseCapture();
+            SendMessage(this.Handle, 0x0112, 0xF012, 0);
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+
+            if (Opacity > 1)
+            {
+                Opacity--;
+            }
+            else
+            {
+                timer1.Enabled = false;
+                Application.Exit();
+                
+            }
+        }
+
+        
+
+        
     }
 }

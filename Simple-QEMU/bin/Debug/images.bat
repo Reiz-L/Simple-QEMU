@@ -1,1 +1,1 @@
-"D:\Programs\qemu\qemu-img.exe" create -f qcow2 "C:\Users\Reiz\Documents\Visual Studio 2012\Projects\Simple-QEMU\Simple-QEMU\bin\Debug\images\win2k.qcow2" 2048M
+"D:\Programs\qemu\qemu-img.exe" create -f qcow2 "C:\Users\Reiz\Documents\Visual Studio 2012\Projects\Simple-QEMU\Simple-QEMU\bin\Debug\images\img1.qcow2" 2048M

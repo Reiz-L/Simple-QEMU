@@ -51,6 +51,7 @@ namespace SQEMU
             NewVM new1 = new NewVM();
             new1.Show();
         }
+        public static string lm;//启动方式
         public static string filepath_edit;
         private void Manager_Load(object sender, EventArgs e)
         {
@@ -70,6 +71,17 @@ namespace SQEMU
                 Directory.CreateDirectory(@".\\VMS");
             }
             
+            if (File.Exists(".\\config.cfg"))
+            {
+                StreamReader sr = new StreamReader(Application.StartupPath + "\\config.cfg", Encoding.Default);
+                String text1 = sr.ReadToEnd();
+                sr.Close();
+                string[] stext = text1.Split(new string[] { "\n" }, StringSplitOptions.None);
+                if (stext.Length > 1)
+                {
+                    lm = stext[1];
+                }
+            }
         }
 
         private void 刷新ToolStripMenuItem_Click(object sender, EventArgs e)
@@ -85,18 +97,54 @@ namespace SQEMU
 
         private void button1_Click(object sender, EventArgs e)
         {
-            if (textBox1.Text != "")
+            if (lm == "bat" || lm == null)
             {
-                Process process = new Process();
-                process.StartInfo.FileName = listBox1.SelectedItem.ToString();
-                process.StartInfo.UseShellExecute = false;
-                process.StartInfo.RedirectStandardInput = true;
-                process.StartInfo.RedirectStandardOutput = true;
-                process.StartInfo.RedirectStandardError = true;
-                process.StartInfo.CreateNoWindow = true;
-                process.Start();//启动程序                        
-                //process.WaitForExit();//等待程序执行完退出进程                
-                //process.Close();
+                if (textBox1.Text != "")
+                {
+                    Process process = new Process();
+                    process.StartInfo.FileName = listBox1.SelectedItem.ToString();
+                    process.StartInfo.UseShellExecute = false;
+                    process.StartInfo.RedirectStandardInput = true;
+                    process.StartInfo.RedirectStandardOutput = true;
+                    process.StartInfo.RedirectStandardError = true;
+                    process.StartInfo.CreateNoWindow = true;
+                    process.Start();//启动程序                        
+                    //process.WaitForExit();//等待程序执行完退出进程                
+                    //process.Close();
+                }
+            }
+            else if (lm == "Direct")
+            {
+                try
+                {
+                    StreamReader sr = new StreamReader(listBox1.SelectedItem.ToString(), Encoding.Default);
+                    String str = sr.ReadToEnd();
+                    sr.Close();
+                    string[] sstr = str.Split(new string[] {"\n"},StringSplitOptions.None);
+                    Process p1 = new Process();
+                    p1.StartInfo.FileName = "cmd.exe";
+                    p1.StartInfo.UseShellExecute = false;
+                    p1.StartInfo.RedirectStandardInput = true;
+                    p1.StartInfo.RedirectStandardOutput = true;
+                    p1.StartInfo.RedirectStandardError = true;
+                    p1.StartInfo.CreateNoWindow = true;
+                    p1.Start();
+                    
+                    p1.StandardInput.WriteLine(sstr[0]+"&exit");
+                    p1.StandardInput.AutoFlush = true;
+
+                    p1.WaitForExit();
+                    p1.Close();
+                    String outputs = p1.StandardOutput.ReadToEnd();
+                    textBox2.Text = outputs;
+
+                }
+                catch(Exception e1)
+                {
+                    MessageBox.Show(e1.ToString(),"Error",MessageBoxButtons.OK,MessageBoxIcon.Error);
+                }
+                
+
             }
             
         }
