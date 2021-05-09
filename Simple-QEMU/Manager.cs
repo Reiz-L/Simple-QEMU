@@ -80,6 +80,7 @@ namespace SQEMU
                 if (stext.Length > 1)
                 {
                     lm = stext[1];
+                    //MessageBox.Show(lm,"a");
                 }
             }
         }
@@ -97,23 +98,21 @@ namespace SQEMU
 
         private void button1_Click(object sender, EventArgs e)
         {
-            if (lm == "bat" || lm == null)
+            if (textBox1.Text != "")
             {
-                if (textBox1.Text != "")
-                {
-                    Process process = new Process();
-                    process.StartInfo.FileName = listBox1.SelectedItem.ToString();
-                    process.StartInfo.UseShellExecute = false;
-                    process.StartInfo.RedirectStandardInput = true;
-                    process.StartInfo.RedirectStandardOutput = true;
-                    process.StartInfo.RedirectStandardError = true;
-                    process.StartInfo.CreateNoWindow = true;
-                    process.Start();//启动程序                        
+                Process process = new Process();
+                process.StartInfo.FileName = listBox1.SelectedItem.ToString();
+                process.StartInfo.UseShellExecute = false;
+                process.StartInfo.RedirectStandardInput = true;
+                process.StartInfo.RedirectStandardOutput = true;
+                process.StartInfo.RedirectStandardError = true;
+                process.StartInfo.CreateNoWindow = true;
+                process.Start();//启动程序                        
                     //process.WaitForExit();//等待程序执行完退出进程                
                     //process.Close();
-                }
-            }
-            else if (lm == "Direct")
+             }
+         }
+            /*else if (lm == "5.x")
             {
                 try
                 {
@@ -145,9 +144,9 @@ namespace SQEMU
                 }
                 
 
-            }
+            }*/
             
-        }
+        
 
         private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
         {

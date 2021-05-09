@@ -57,10 +57,10 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(71, 142);
+            this.button1.Location = new System.Drawing.Point(281, 30);
             this.button1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(89, 33);
+            this.button1.Size = new System.Drawing.Size(50, 23);
             this.button1.TabIndex = 2;
             this.button1.Text = "浏览";
             this.button1.UseVisualStyleBackColor = true;
@@ -68,7 +68,7 @@
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(166, 142);
+            this.button2.Location = new System.Drawing.Point(136, 116);
             this.button2.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(87, 33);
@@ -92,27 +92,27 @@
             this.radioButton1.Checked = true;
             this.radioButton1.Location = new System.Drawing.Point(15, 77);
             this.radioButton1.Name = "radioButton1";
-            this.radioButton1.Size = new System.Drawing.Size(141, 21);
+            this.radioButton1.Size = new System.Drawing.Size(84, 21);
             this.radioButton1.TabIndex = 5;
             this.radioButton1.TabStop = true;
-            this.radioButton1.Text = "保存参数到bat并启动";
+            this.radioButton1.Text = "QEMU 4.x";
             this.radioButton1.UseVisualStyleBackColor = true;
             // 
             // radioButton2
             // 
             this.radioButton2.AutoSize = true;
-            this.radioButton2.Location = new System.Drawing.Point(162, 77);
+            this.radioButton2.Location = new System.Drawing.Point(105, 77);
             this.radioButton2.Name = "radioButton2";
-            this.radioButton2.Size = new System.Drawing.Size(130, 21);
+            this.radioButton2.Size = new System.Drawing.Size(84, 21);
             this.radioButton2.TabIndex = 6;
-            this.radioButton2.Text = "直接启动(测试功能)";
+            this.radioButton2.Text = "QEMU 5.x";
             this.radioButton2.UseVisualStyleBackColor = true;
             // 
             // GQP
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(331, 191);
+            this.ClientSize = new System.Drawing.Size(336, 162);
             this.Controls.Add(this.radioButton2);
             this.Controls.Add(this.radioButton1);
             this.Controls.Add(this.label2);

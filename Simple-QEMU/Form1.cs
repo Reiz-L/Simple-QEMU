@@ -177,6 +177,23 @@ namespace SQEMU
             }
         }
 
+        private void button5_Click(object sender, EventArgs e)
+        {
+            Process p = new Process();
+            p.StartInfo.FileName = "cmd.exe";
+            p.StartInfo.UseShellExecute = false;
+            p.StartInfo.RedirectStandardInput = true;
+            p.StartInfo.RedirectStandardOutput = true;
+            p.StartInfo.RedirectStandardError = true;
+            p.StartInfo.CreateNoWindow = true;
+            p.Start();
+            p.StandardInput.WriteLine("start https://www.qemu.org/download/ &exit");
+            p.StandardInput.AutoFlush = true;
+            p.WaitForExit();
+            p.Close();
+            MessageBox.Show("已经为您打开QEMU官网下载地址，请自行挑选版本下载","info",MessageBoxButtons.OK,MessageBoxIcon.Information);
+        }
+
         
 
         

@@ -30,11 +30,11 @@ namespace Simple_QEMU
             String LaunchMethod;
             if(radioButton1.Checked)
             {
-                LaunchMethod = "Direct";
+                LaunchMethod = "4.x";
             }
             else
             {
-                LaunchMethod = "bat";
+                LaunchMethod = "5.x";
             }
             FileStream fs = new FileStream(Application.StartupPath + "\\config.cfg",FileMode.Create);
             StreamWriter sw = new StreamWriter(fs,Encoding.Default);
@@ -55,11 +55,11 @@ namespace Simple_QEMU
                 textBox1.Text = strs[0];
                 if (strs.Length > 1)
                 {
-                    if (strs[1] == "Direct")
+                    if (strs[1] == "4.x")
                     {
                         radioButton1.Checked = true;
                     }
-                    else if (strs[1] == "bat")
+                    else if (strs[1] == "5.x")
                     {
                         radioButton2.Checked = true;
                     }

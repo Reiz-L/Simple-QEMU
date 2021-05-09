@@ -1,0 +1,1 @@
+D:\Programs\qemu\qemu-img.exe convert -f raw -O qcow2 "C:\Users\Reiz\Documents\Visual Studio 2012\Projects\Simple-QEMU\Simple-QEMU\bin\Debug\images\w2k3.raw" "C:\Users\Reiz\Documents\Visual Studio 2012\Projects\Simple-QEMU\Simple-QEMU\bin\Debug\images\win2k3.qcow2"

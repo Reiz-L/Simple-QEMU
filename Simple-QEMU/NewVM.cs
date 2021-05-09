@@ -22,13 +22,29 @@ namespace SQEMU
         {
             if (!File.Exists(".\\VMC\\" + Manager.pathstr + ".sqc"))
            {
-                comboBox_x86.SelectedIndex = 0;
-                comboBox_CPU.SelectedIndex = 0;
-                comboBox_vga.SelectedIndex = 0;
-                comboBox_sound.SelectedIndex = 0;
-                comboBox_network.SelectedIndex = 0;
-                comboBox1.SelectedIndex = 0;
-                textBox_QPath.Text = Application.StartupPath + "\\qemu\\";
+               if (File.Exists(Application.StartupPath + "\\config.cfg"))
+               {
+                   StreamReader sr = new StreamReader(Application.StartupPath + "\\config.cfg", Encoding.Default);
+                   String str = sr.ReadToEnd();
+                   string[] strs = str.Split(new string[] { "\n" }, StringSplitOptions.None);
+                   sr.Close();
+                   comboBox_x86.SelectedIndex = 0;
+                   comboBox_CPU.SelectedIndex = 0;
+                   comboBox_vga.SelectedIndex = 0;
+                   comboBox_sound.SelectedIndex = 0;
+                   comboBox_network.SelectedIndex = 0;
+                   comboBox1.SelectedIndex = 0;
+                   textBox_QPath.Text = strs[0];
+               }
+               else
+               {
+                   MessageBox.Show("你没有设置全局QEMU路径请前往设置！","Error: Not Found QEMU Path",MessageBoxButtons.OK,MessageBoxIcon.Error);
+                   Hide();
+                   Simple_QEMU.GQP gqp = new Simple_QEMU.GQP();
+                   gqp.Show();
+                   Close();
+                   
+               }
             }
             else
            {
@@ -103,7 +119,7 @@ namespace SQEMU
                     String disk4 = t_D4.Text;
                     String CDROM = t_cd.Text;
                     String vga;
-                    String soundhw;
+                    String soundhw = "";
                     String network;
                     String bootc;
                     String vnc;
@@ -169,7 +185,15 @@ namespace SQEMU
                     }
                     else
                     {
-                        soundhw = " -device " + comboBox_sound.SelectedItem.ToString();
+                        if (Manager.lm == "5.x")
+                        {
+                            soundhw = " -device " + comboBox_sound.SelectedItem.ToString();
+                        }
+                        else if(Manager.lm == "4.x")
+                        {
+                            soundhw = " -soundhw " + comboBox_sound.SelectedItem.ToString();
+                        }
+                        
                     }
                     network = " -net user" + " -net nic,model=" + comboBox1.SelectedItem.ToString();
                     //===============vnc==================
@@ -284,6 +308,12 @@ namespace SQEMU
             {
                 textBox_sf.Text = "-hdd fat:rw:" + folderBrowserDialog1.SelectedPath;
             }
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            Simple_QEMU.ImgTools imgtools = new Simple_QEMU.ImgTools();
+            imgtools.Show();
         }
 
         
