@@ -71,6 +71,7 @@ namespace SQEMU
                    checkBox_cd.Checked = Convert.ToBoolean(str2[14]);
                    checkBox1.Checked = Convert.ToBoolean(str2[15]);//vnc
                    textBox_sf.Text = str2[16];
+                   checkBox_HAXM.Checked = Convert.ToBoolean(str2[17]);
                }
                catch(Exception e1)
                {
@@ -124,6 +125,7 @@ namespace SQEMU
                     String bootc;
                     String vnc;
                     String shareFolder = "";
+                    String IsHAXM;
                     //===================磁盘
                     if(t_D1.Text != "")
                     {
@@ -153,7 +155,7 @@ namespace SQEMU
                     //===========cores
                     if (textBox_core.Text != "1")
                     {
-                        core = " -smp " + textBox_core.Text;
+                        core = " -smp 1,sockets=" + textBox_core.Text + ",threads=" + textBox_core.Text;
                     }
                     else
                     {
@@ -220,11 +222,20 @@ namespace SQEMU
                     {
                         CDROM = "";
                     }
-                    //=========================
-                    sw.Write("\"" + textBox_QPath.Text +"\\"+ jiagou + "\""+ " -L \"" + textBox_QPath.Text + "\"" + disk1 + disk2 + disk3 + disk4 +CDROM + bootc + Ram + vga + network + soundhw + CPUmodel +core + vnc + shareFolder);
+                    //=============HAXM==========
+                    if(checkBox_HAXM.Checked)
+                    {
+                        IsHAXM = " -machine accel=hax";
+                    }
+                    else
+                    {
+                        IsHAXM = "";
+                    }
+                    //===========================
+                    sw.Write("\"" + textBox_QPath.Text +"\\"+ jiagou + "\""+ " -L \"" + textBox_QPath.Text + "\"" + disk1 + disk2 + disk3 + disk4 +CDROM + bootc + Ram + vga + network + soundhw + CPUmodel + core + vnc + shareFolder + IsHAXM);
                     sw.Close();
                     fs.Close();
-                    sw1.Write(textBox_name.Text + "\n" +  textBox_QPath.Text + "\n" + comboBox_x86.SelectedIndex.ToString() + "\n" + comboBox_CPU.SelectedIndex.ToString() + "\n" + textBox_core.Text + "\n" + textBox_mb.Text + "\n" + t_D1.Text + "\n" + t_D2.Text + "\n" + t_D3.Text + "\n" + t_D4.Text + "\n" + t_cd.Text + "\n" + comboBox_vga.SelectedIndex.ToString() + "\n" + comboBox_sound.SelectedIndex.ToString() + "\n" + comboBox_network.SelectedIndex.ToString() + "\n" + checkBox_cd.Checked.ToString() +"\n" + checkBox1.Checked.ToString() + "\n" + textBox_sf.Text + "\n");
+                    sw1.Write(textBox_name.Text + "\n" +  textBox_QPath.Text + "\n" + comboBox_x86.SelectedIndex.ToString() + "\n" + comboBox_CPU.SelectedIndex.ToString() + "\n" + textBox_core.Text + "\n" + textBox_mb.Text + "\n" + t_D1.Text + "\n" + t_D2.Text + "\n" + t_D3.Text + "\n" + t_D4.Text + "\n" + t_cd.Text + "\n" + comboBox_vga.SelectedIndex.ToString() + "\n" + comboBox_sound.SelectedIndex.ToString() + "\n" + comboBox_network.SelectedIndex.ToString() + "\n" + checkBox_cd.Checked.ToString() +"\n" + checkBox1.Checked.ToString() + "\n" + textBox_sf.Text + "\n" + checkBox_HAXM.Checked.ToString());
                     sw1.Close();
                     fs1.Close();
                     Close();
@@ -314,6 +325,11 @@ namespace SQEMU
         {
             Simple_QEMU.ImgTools imgtools = new Simple_QEMU.ImgTools();
             imgtools.Show();
+        }
+
+        private void checkBox_HAXM_CheckedChanged(object sender, EventArgs e)
+        {
+            MessageBox.Show("请使用x86_64架构，并且确定你开启了Intel VT，如果没有开启请去BIOS里面打开", "必须要用Intel的CPU", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         

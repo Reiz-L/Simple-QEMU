@@ -199,9 +199,9 @@
             this.label7.ForeColor = System.Drawing.Color.PaleTurquoise;
             this.label7.Location = new System.Drawing.Point(12, 355);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(82, 17);
+            this.label7.Size = new System.Drawing.Size(119, 17);
             this.label7.TabIndex = 11;
-            this.label7.Text = "ver20210509";
+            this.label7.Text = "ver20210515 Beta1";
             // 
             // Form1
             // 

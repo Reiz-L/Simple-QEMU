@@ -244,7 +244,28 @@ namespace SQEMU
         private void button2_Click(object sender, EventArgs e)
         {
             //if(GetPidByProcessName("cmd.exe") == 0)
-            MessageBox.Show("暂未实现！请手动关闭！","Under Construction",MessageBoxButtons.OK,MessageBoxIcon.Information);
+
+            if (System.Diagnostics.Process.GetProcessesByName("qemu-system-x86_64.exe").ToList().Count > 0)
+            {
+                String processName = "qemu-system-x86_64.exe";
+                Process[] thisproc = Process.GetProcessesByName(processName);
+                for (int i = 0; i < thisproc.Length; i++)
+                {
+                    thisproc[i].Kill();
+                }
+                    
+                MessageBox.Show("已关闭!", "info", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            else if (System.Diagnostics.Process.GetProcessesByName("qemu-system-i386.exe").ToList().Count > 0)
+            {
+                String processName = "qemu-system-i386.exe";
+                Process[] thisproc = Process.GetProcessesByName(processName);
+                for (int i = 0; i < thisproc.Length; i++)
+                {
+                    thisproc[i].Kill();
+                }
+                MessageBox.Show("已关闭!", "info", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
         }
 
         private void button5_Click(object sender, EventArgs e)
@@ -255,65 +276,56 @@ namespace SQEMU
 
         private void button3_Click(object sender, EventArgs e)
         {
-
-            if (listBox1.SelectedIndex > -1)
+            if (File.Exists(Application.StartupPath + "\\HAXM\\silent_install.bat"))
             {
-                if (folderBrowserDialog1.ShowDialog() == DialogResult.OK)
-                {
-                    Process p = new Process();
-                    p.StartInfo.FileName = "cmd.exe";
-                    p.StartInfo.UseShellExecute = false;
-                    p.StartInfo.RedirectStandardInput = true;
-                    p.StartInfo.RedirectStandardOutput = true;
-                    p.StartInfo.RedirectStandardError = true;
-                    p.StartInfo.CreateNoWindow = true;
-                    p.Start();
-                    string[] cut1 = listBox1.SelectedItem.ToString().Split(new string[] { ".\\VMS\\" }, StringSplitOptions.None);
-                    string[] cut2 = cut1[1].Split(new string[] { ".bat" }, StringSplitOptions.None);
-                    p.StandardInput.WriteLine("copy " + folderBrowserDialog1.SelectedPath + "\\" + cut2[0] + ".bat" + " " + listBox1.SelectedItem.ToString());
-                    p.StandardInput.WriteLine("copy " + folderBrowserDialog1.SelectedPath + "\\" + cut2[0] + ".sqc" + " " + Application.StartupPath + "\\" + cut2[0] + ".sqc" + "&exit");
-                    p.StandardInput.AutoFlush = true;
-                    p.WaitForExit();
-                    p.Close();
-                    MessageBox.Show("导出完成!", "OK", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
+                Process p = new Process();
+                p.StartInfo.FileName = Application.StartupPath + "\\HAXM\\silent_install.bat";
+                p.StartInfo.UseShellExecute = false;
+                p.StartInfo.RedirectStandardInput = true;
+                p.StartInfo.RedirectStandardOutput = true;
+                p.StartInfo.RedirectStandardError = true;
+                p.StartInfo.CreateNoWindow = false;
+                p.Start();
+
+               // p.StandardInput.WriteLine(Application.StartupPath + "\\HAXM\\silent_install.bat -log install.log");
+               // p.StandardInput.AutoFlush = true;
+               // p.WaitForExit();
+                //String outputs = p.StandardOutput.ReadToEnd();
+               // p.Close();
+                
+                MessageBox.Show("完成!如果不成功请自行手动安装!","输出信息",MessageBoxButtons.OK,MessageBoxIcon.Information);
 
             }
             else
             {
-                MessageBox.Show("请选中一个项目！", "Error");
+                Process p = new Process();
+                p.StartInfo.FileName = "cmd.exe";
+                p.StartInfo.UseShellExecute = false;
+                p.StartInfo.RedirectStandardInput = true;
+                p.StartInfo.RedirectStandardOutput = true;
+                p.StartInfo.RedirectStandardError = true;
+                p.StartInfo.CreateNoWindow = true;
+                p.Start();
+
+                p.StandardInput.WriteLine("start https://github.com/intel/haxm/releases &exit");
+                p.StandardInput.AutoFlush = true;
+                p.WaitForExit();
+                p.Close();
+                MessageBox.Show("确保你是Win7 x64以上并且开启了Intel VT，请挑选一个windows版本进行下载，然后解压放入目录下的HAXM文件夹,用管理器权限启动并点击这个按钮", "下载", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                if (!Directory.Exists(Application.StartupPath + "\\HAXM"))
+                {
+                    Directory.CreateDirectory(Application.StartupPath + "\\HAXM");
+                }
+
+                
             }
+            
+            
         }
 
         private void button4_Click(object sender, EventArgs e)
         {
-            if (listBox1.SelectedIndex > -1)
-            {
-                if (folderBrowserDialog1.ShowDialog() == DialogResult.OK)
-                {
-                    Process p = new Process();
-                    p.StartInfo.FileName = "cmd.exe";
-                    p.StartInfo.UseShellExecute = false;
-                    p.StartInfo.RedirectStandardInput = true;
-                    p.StartInfo.RedirectStandardOutput = true;
-                    p.StartInfo.RedirectStandardError = true;
-                    p.StartInfo.CreateNoWindow = true;
-                    p.Start();
-                    string[] cut1 = listBox1.SelectedItem.ToString().Split(new string[] { ".\\VMS\\" }, StringSplitOptions.None);
-                    string[] cut2 = cut1[1].Split(new string[] { ".bat" }, StringSplitOptions.None);
-                    p.StandardInput.WriteLine("copy " + listBox1.SelectedItem.ToString() + " " + folderBrowserDialog1.SelectedPath + "\\" + cut2[0] + ".bat");
-                    p.StandardInput.WriteLine("copy " + Application.StartupPath + "\\" + cut2[0] + ".sqc" + " " + folderBrowserDialog1.SelectedPath + "\\" + cut2[0] + ".sqc" + "&exit");
-                    p.StandardInput.AutoFlush = true;
-                    p.WaitForExit();
-                    p.Close();
-                    MessageBox.Show("导出完成!","OK",MessageBoxButtons.OK,MessageBoxIcon.Information);
-                }
-                
-            }
-            else
-            {
-                MessageBox.Show("请选中一个项目！", "Error");
-            }
+            MessageBox.Show("HAXM支持的硬件和系统:\n\rWindows 7/8/8.1/10 x64\n\rIntel 支持虚拟化技术的CPU", "HAXM支持的硬件和系统", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         

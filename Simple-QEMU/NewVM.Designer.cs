@@ -78,6 +78,8 @@
             this.textBox_sf = new System.Windows.Forms.TextBox();
             this.button3 = new System.Windows.Forms.Button();
             this.button4 = new System.Windows.Forms.Button();
+            this.checkBox_HAXM = new System.Windows.Forms.CheckBox();
+            this.label19 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // label1
@@ -176,12 +178,21 @@
             this.comboBox_CPU.Items.AddRange(new object[] {
             "默认",
             "qemu32",
+            "qemu64",
             "kvm32",
+            "kvm64",
             "coreduo",
+            "core2duo",
             "486",
+            "pentium",
+            "pentium2",
             "pentium3",
             "athlon",
-            "n270"});
+            "n270",
+            "Penryn",
+            "SandyBridge",
+            "Opteron_G4",
+            "Opteron_G5"});
             this.comboBox_CPU.Location = new System.Drawing.Point(298, 86);
             this.comboBox_CPU.Name = "comboBox_CPU";
             this.comboBox_CPU.Size = new System.Drawing.Size(82, 20);
@@ -388,6 +399,7 @@
             "std",
             "cirrus",
             "vmware",
+            "qxl",
             "none"});
             this.comboBox_vga.Location = new System.Drawing.Point(69, 274);
             this.comboBox_vga.Name = "comboBox_vga";
@@ -476,7 +488,7 @@
             // 
             // button_Save
             // 
-            this.button_Save.Location = new System.Drawing.Point(124, 357);
+            this.button_Save.Location = new System.Drawing.Point(128, 384);
             this.button_Save.Name = "button_Save";
             this.button_Save.Size = new System.Drawing.Size(75, 23);
             this.button_Save.TabIndex = 43;
@@ -486,7 +498,7 @@
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(215, 357);
+            this.button2.Location = new System.Drawing.Point(209, 384);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(75, 23);
             this.button2.TabIndex = 44;
@@ -576,12 +588,36 @@
             this.button4.UseVisualStyleBackColor = true;
             this.button4.Click += new System.EventHandler(this.button4_Click);
             // 
+            // checkBox_HAXM
+            // 
+            this.checkBox_HAXM.AutoSize = true;
+            this.checkBox_HAXM.ForeColor = System.Drawing.Color.White;
+            this.checkBox_HAXM.Location = new System.Drawing.Point(142, 355);
+            this.checkBox_HAXM.Name = "checkBox_HAXM";
+            this.checkBox_HAXM.Size = new System.Drawing.Size(72, 16);
+            this.checkBox_HAXM.TabIndex = 52;
+            this.checkBox_HAXM.Text = "启用HAXM";
+            this.checkBox_HAXM.UseVisualStyleBackColor = true;
+            this.checkBox_HAXM.CheckedChanged += new System.EventHandler(this.checkBox_HAXM_CheckedChanged);
+            // 
+            // label19
+            // 
+            this.label19.AutoSize = true;
+            this.label19.ForeColor = System.Drawing.Color.White;
+            this.label19.Location = new System.Drawing.Point(22, 356);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(119, 12);
+            this.label19.TabIndex = 53;
+            this.label19.Text = "Intel VT虚拟化技术:";
+            // 
             // NewVM
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.ClientSize = new System.Drawing.Size(441, 392);
+            this.ClientSize = new System.Drawing.Size(441, 419);
+            this.Controls.Add(this.label19);
+            this.Controls.Add(this.checkBox_HAXM);
             this.Controls.Add(this.button4);
             this.Controls.Add(this.button3);
             this.Controls.Add(this.textBox_sf);
@@ -693,5 +729,7 @@
         private System.Windows.Forms.TextBox textBox_sf;
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.Button button4;
+        private System.Windows.Forms.CheckBox checkBox_HAXM;
+        private System.Windows.Forms.Label label19;
     }
 }
